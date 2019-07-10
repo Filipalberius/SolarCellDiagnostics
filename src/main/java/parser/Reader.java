@@ -7,13 +7,11 @@ import java.nio.file.Paths;
 
 class Reader {
 
-    private BufferedReader reader;
-
     Reader(String fileName){
         Path path = Paths.get(fileName);
 
         try {
-            reader = Files.newBufferedReader(path);
+            BufferedReader reader = Files.newBufferedReader(path);
         } catch (IOException e) {
             e.printStackTrace();
         }
