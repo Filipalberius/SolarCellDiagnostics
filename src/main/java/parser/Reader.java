@@ -15,10 +15,9 @@ class Reader {
 
         try {
             reader = Files.newBufferedReader(path);
+            System.out.println("info från bufferedReader: " + reader.readLine());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
 }
