@@ -1,5 +1,13 @@
+import sys
+
+
+def init(stdin):
+    test = stdin.readline().split()
+    print(test)
+
+
 def main():
-    print("hello world")
+    init(sys.stdin)
 
 
 if __name__ == '__main__':
