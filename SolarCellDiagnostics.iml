@@ -7,7 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.6 (SolarCellDiagnostics)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library" exported="" scope="TEST">
       <library name="JUnit5.4">
@@ -41,7 +41,6 @@
           <root url="jar://$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.5.0/junit-platform-commons-1.5.0.jar!/" />
         </CLASSES>
-        <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
