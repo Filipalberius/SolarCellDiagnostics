@@ -1,7 +1,13 @@
-def get_line(index):
-    file = open('produktionsdata.csv')
+def initialize():
+    return open('produktionsdata.csv').readlines()
 
-    return file.readlines()[index].split(';')
+
+def get_line(data, index):
+    return data[index].split(';')
+
+
+def find_identity(data, identity):
+
 
 
 def print_data(line):
@@ -27,8 +33,11 @@ def print_data(line):
 
 
 def main():
-    line = get_line(0)
-    print_data(line)
+    data = initialize()
+    test_line = get_line(data, 0)
+    print_data(test_line)
+    identity = input("Enter cell's ID\n")
+    print(identity)
 
 
 if __name__ == '__main__':
