@@ -17,35 +17,24 @@ def read(path):
 
 
 # Prints the data on a given line.
-def data_tostring(line):
-    identity = line[0]
-    date_format = line[1]
-    date = line[2]
-    q_code = line[3]
-    period = line[4]
-    unit = line[5]
+def data_toarray(line):
 
+    values = list()
     data = line[10:]
 
-    print("Id: " + identity + ". Date: " + date)
-    print("Production per hour:")
-
     i = 0
-    a = 0
-    for datum in data:
+    for value in data:
         if i % 2 == 0:
-            print("Hour " + str(a) + ": " + datum + " " + unit)
-            a += 1
+            values.append(value)
         i += 1
 
-def data_toarray(line):
-    data_array = list()
-    i = 0
-    a = 0
-    for value in line[10:]:
-        if i % 2 == 0:
-            list.append(value)
-    return data_array
+    return_string = "[";
+
+    for number in values:
+        return_string += (number + ";")
+    return_string = return_string[:-1]
+    return_string += "]"
+    print(return_string)
 
 
 # Finds the interval of entries containing the correct identity and dates.
@@ -69,14 +58,15 @@ def dialogue():
     return identity, start, end
 
 
-def main():
-    identity, start, end = dialogue()
-    entries = get_data('produktionsdata.csv', identity, start, end)
-    data_tostring(entries[0])
+def print_data(entries):
+    for entry in entries:
+        data_toarray(entry)
 
-    # id = 734012530000000438
-    # start = 201701010000
-    # end = 201702040000
+
+def main():
+    identity, start, end = "734012530000024571", 201811290000, 201812220000
+    entries = get_data('produktionsdata.csv', identity, start, end)
+    print_data(entries)
 
 
 if __name__ == '__main__':
