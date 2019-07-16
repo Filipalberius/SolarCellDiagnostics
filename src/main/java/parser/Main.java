@@ -6,11 +6,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Reader reader = new Reader("src/main/resources/data/produktionsdata.csv");
+       CSVreader reader = new CSVreader("734012530000000438", "201703130000", "201703130000");
+       Double[] values = reader.getData();
 
-        Reader2 reader2 = new Reader2("src/main/resources/data/produktionsdata.csv");
-
-        collectData.getData("734012530000000438", "201701010000", "201701010000" );
-
+       for (int i = 0; i<values.length; i++) {
+           System.out.println("timme " + i + ": " + values[i]);
+       }
     }
 }
