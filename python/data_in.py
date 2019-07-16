@@ -22,7 +22,8 @@ def get_line(data, index):
 
 
 # Searches the data array for an entry with a specific identity.
-def find_identity_entries(data, identity):
+def find_identity(data, identity):
+
     entries = list()
 
     for i in range(len(data)):
@@ -36,12 +37,8 @@ def find_identity_entries(data, identity):
 
 
 # Returns all entries in the specified date interval.
-def return_data_with_dates(matrix, open_date, close_date):
-    values = list()
-    for x in matrix:
-        if open_date <= x[2] <= close_date:
-            values.append(x[2])
-    return values
+def entries_by_date(entries, first_date, last_date):
+    return [entry for entry in entries if first_date <= int(entry[2]) <= last_date]
 
 
 # Prints the data on a given line.
@@ -67,14 +64,24 @@ def print_data(line):
         i += 1
 
 
+def dialogue():
+    print('Hello and welcome to Samuel and Filips awesome Solar Cell Programme!\n')
+    identity = input('What solar cell do you want to examine?\n')
+    start = int(input('From what date? (YYYYMMDDhhmm)\n'))
+    end = int(input('Until what date? (YYYYMMDDhhmm)\n'))
+    return identity, start, end
+
+
 def main():
     data = read('produktionsdata.csv')
-    entries = find_identity_entries(data, '734012530000000438')
-    test_line = entries[0]
-    print_data(test_line)
+    identity, start, end = dialogue()
+    entries = find_identity(data, identity)
+    date_entries = entries_by_date(entries, start, end)
+    print_data(date_entries[10])
 
-    # identity = input("Enter cell's ID\n")
-    # print(identity)
+    # id = 734012530000000438
+    # start = 201701010000
+    # end = 201702040000
 
 
 if __name__ == '__main__':
