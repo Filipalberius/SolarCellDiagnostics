@@ -16,14 +16,14 @@ def read(path):
 
 
 def get_line(data, index):
-    if index > len(data):
-        print('derp')
     return data[index].split(';')
 
 
 def find_identity(data, identity):
     i = 0
     while True:
+        if i > len(data):
+            break
         line = get_line(data, i)
         if identity == line[0]:
             return line
@@ -55,8 +55,8 @@ def print_data(line):
 
 def main():
     data = read('produktionsdata.csv')
-    line = get_line(data, 26276)
-    #line = find_identity(data, '734012530000043305')
+    #line = get_line(data, 26276)
+    line = find_identity(data, '734012530000043305')
     print_data(line)
 
     # identity = input("Enter cell's ID\n")
