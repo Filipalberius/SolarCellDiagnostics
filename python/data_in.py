@@ -17,7 +17,7 @@ def read(path):
 
 
 # Prints the data on a given line.
-def print_data(line):
+def data_tostring(line):
     identity = line[0]
     date_format = line[1]
     date = line[2]
@@ -37,6 +37,15 @@ def print_data(line):
             print("Hour " + str(a) + ": " + datum + " " + unit)
             a += 1
         i += 1
+
+def data_toarray(line):
+    data_array = list()
+    i = 0
+    a = 0
+    for value in line[10:]:
+        if i % 2 == 0:
+            list.append(value)
+    return data_array
 
 
 # Finds the interval of entries containing the correct identity and dates.
@@ -63,7 +72,7 @@ def dialogue():
 def main():
     identity, start, end = dialogue()
     entries = get_data('produktionsdata.csv', identity, start, end)
-    print_data(entries[0])
+    data_tostring(entries[0])
 
     # id = 734012530000000438
     # start = 201701010000
