@@ -16,31 +16,6 @@ def read(path):
         exit()
 
 
-# Returns the line of a specific index in the data array.
-def get_line(data, index):
-    return data[index].split(';')
-
-
-# Searches the data array for an entry with a specific identity.
-def find_identity(data, identity):
-
-    entries = list()
-
-    for i in range(len(data)):
-        line = get_line(data, i)
-        if identity == line[0]:
-            entries.append(line)
-        else:
-            i += 1
-
-    return entries
-
-
-# Returns all entries in the specified date interval.
-def entries_by_date(entries, first_date, last_date):
-    return [entry for entry in entries if first_date <= int(entry[2]) <= last_date]
-
-
 # Prints the data on a given line.
 def print_data(line):
     identity = line[0]
@@ -64,6 +39,19 @@ def print_data(line):
         i += 1
 
 
+# Finds the interval of entries containing the correct identity and dates.
+def get_data(file, identity, open_date, close_date):
+    data = read(file)
+    entries = list()
+    for line in data:
+        entry = line.split(';')
+        if entry[0] == identity:
+            if open_date <= int(entry[2]) <= close_date:
+                entries.append(entry)
+    return entries
+
+
+# Prompts a dialogue in the terminal asking user for correct parameters.
 def dialogue():
     print('Hello and welcome to Samuel and Filips awesome Solar Cell Programme!\n')
     identity = input('What solar cell do you want to examine?\n')
@@ -73,11 +61,9 @@ def dialogue():
 
 
 def main():
-    data = read('produktionsdata.csv')
     identity, start, end = dialogue()
-    entries = find_identity(data, identity)
-    date_entries = entries_by_date(entries, start, end)
-    print_data(date_entries[10])
+    entries = get_data('produktionsdata.csv', identity, start, end)
+    print_data(entries[0])
 
     # id = 734012530000000438
     # start = 201701010000
