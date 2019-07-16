@@ -1,6 +1,7 @@
 import os
 
 
+# Reads a given file and creates an array containing all of the lines in the file.
 def read(path):
     if os.path.exists(path):
         with open(path) as file:
@@ -15,15 +16,14 @@ def read(path):
         exit()
 
 
+# Returns the line of a specific index in the data array.
 def get_line(data, index):
     return data[index].split(';')
 
 
-def find_identity(data, identity):
-    i = 0
-    while True:
-        if i > len(data):
-            break
+# Searches the data array for an entry with a specific identity.
+def find_identity_entries(data, identity):
+    for i in range(len(data)):
         line = get_line(data, i)
         if identity == line[0]:
             return line
@@ -31,6 +31,7 @@ def find_identity(data, identity):
             i += 1
 
 
+# prints the data on a given line
 def print_data(line):
     identity = line[0]
     date_format = line[1]
@@ -56,7 +57,7 @@ def print_data(line):
 def main():
     data = read('produktionsdata.csv')
     #line = get_line(data, 26276)
-    line = find_identity(data, '734012530000043305')
+    line = find_identity_entries(data, '734012530000043305')
     print_data(line)
 
     # identity = input("Enter cell's ID\n")
