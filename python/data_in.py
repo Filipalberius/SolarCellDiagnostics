@@ -2,6 +2,9 @@ import os
 
 
 # Reads a given file and creates an array containing all of the lines in the file.
+from typing import List, Any
+
+
 def read(path):
     if os.path.exists(path):
         with open(path) as file:
@@ -29,6 +32,13 @@ def find_identity_entries(data, identity):
             return line
         else:
             i += 1
+
+def return_data_with_dates(matrix, open_date, close_date):
+    values = list()
+    for x in matrix:
+        if open_date <= x[2] <= close_date:
+            values.append(x[2])
+    return values
 
 
 # prints the data on a given line
