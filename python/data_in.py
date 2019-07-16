@@ -2,9 +2,6 @@ import os
 
 
 # Reads a given file and creates an array containing all of the lines in the file.
-from typing import List, Any
-
-
 def read(path):
     if os.path.exists(path):
         with open(path) as file:
@@ -26,13 +23,19 @@ def get_line(data, index):
 
 # Searches the data array for an entry with a specific identity.
 def find_identity_entries(data, identity):
+    entries = list()
+
     for i in range(len(data)):
         line = get_line(data, i)
         if identity == line[0]:
-            return line
+            entries.append(line)
         else:
             i += 1
 
+    return entries
+
+
+# Returns all entries in the specified date interval.
 def return_data_with_dates(matrix, open_date, close_date):
     values = list()
     for x in matrix:
@@ -41,7 +44,7 @@ def return_data_with_dates(matrix, open_date, close_date):
     return values
 
 
-# prints the data on a given line
+# Prints the data on a given line.
 def print_data(line):
     identity = line[0]
     date_format = line[1]
@@ -66,9 +69,9 @@ def print_data(line):
 
 def main():
     data = read('produktionsdata.csv')
-    #line = get_line(data, 26276)
-    line = find_identity_entries(data, '734012530000043305')
-    print_data(line)
+    entries = find_identity_entries(data, '734012530000000438')
+    test_line = entries[0]
+    print_data(test_line)
 
     # identity = input("Enter cell's ID\n")
     # print(identity)
