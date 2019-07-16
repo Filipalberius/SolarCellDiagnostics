@@ -1,13 +1,34 @@
-def initialize():
-    return open('produktionsdata.csv').readlines()
+import os
+
+
+def read(path):
+    if os.path.exists(path):
+        with open(path) as file:
+            try:
+                return file.readlines()
+            except IOError:
+                print("Could not find file")
+            finally:
+                file.close()
+    else:
+        print('File does not exist')
+        exit()
 
 
 def get_line(data, index):
+    if index > len(data):
+        print('derp')
     return data[index].split(';')
 
 
 def find_identity(data, identity):
-
+    i = 0
+    while True:
+        line = get_line(data, i)
+        if identity == line[0]:
+            return line
+        else:
+            i += 1
 
 
 def print_data(line):
@@ -33,11 +54,13 @@ def print_data(line):
 
 
 def main():
-    data = initialize()
-    test_line = get_line(data, 0)
-    print_data(test_line)
-    identity = input("Enter cell's ID\n")
-    print(identity)
+    data = read('produktionsdata.csv')
+    line = get_line(data, 26276)
+    #line = find_identity(data, '734012530000043305')
+    print_data(line)
+
+    # identity = input("Enter cell's ID\n")
+    # print(identity)
 
 
 if __name__ == '__main__':
