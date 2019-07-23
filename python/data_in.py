@@ -1,4 +1,6 @@
 import os
+import plotly.graph_objects as go
+
 
 
 # Reads a given file and creates an array containing all of the lines in the file.
@@ -28,6 +30,8 @@ def get_values(line):
             values.append(value)
         i += 1
 
+    for i in range(len(values)):
+        values[i] = float(values[i].replace(',', '.'))
     return values
 
 
@@ -35,11 +39,14 @@ def get_values(line):
 def get_data(file, identity, start_date, end_date):
     data = read(file)
     entries = list()
+
     for line in data:
         entry = line.split(';')
         entry_id, date = entry[0], int(entry[2])
+
         if entry_id == identity and start_date <= date <= end_date:
             entries.append(entry)
+
     return entries
 
 
@@ -53,11 +60,15 @@ def dialogue():
 
 
 def main():
-    identity, start, end = "734012530000024571", 201811290000, 201812220000
+    identity, start, end = '734012530000024571', 201811290000, 201812220000
+    #identity, start, end = dialogue()
     entries = get_data('produktionsdata.csv', identity, start, end)
 
     for e in entries:
         print(get_values(e))
+
+    fig = go.Figure(data=go.Scatter(y=get_values(entries[1])))
+    fig.write_html('first_figure.html', auto_open=True)
 
 
 if __name__ == '__main__':
