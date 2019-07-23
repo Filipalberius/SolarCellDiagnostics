@@ -2,7 +2,6 @@ import os
 import plotly.graph_objects as go
 
 
-
 # Reads a given file and creates an array containing all of the lines in the file.
 def read(path):
     if os.path.exists(path):
@@ -59,16 +58,32 @@ def dialogue():
     return identity, start, end
 
 
+def make_graph(entries):
+    fig = go.Figure()
+
+    for i in range(len(entries)):
+        e = get_values(entries[i])
+        fig.add_trace(go.Scatter(y=e,
+                                 mode='lines+markers',
+                                 line_shape='spline',
+                                 name='day' + str(i + 1)))
+
+    fig.update_layout(title='Production per hour per day for the specified unit and date interval.',
+                      xaxis_title='Hour',
+                      yaxis_title='Production (KWH)')
+
+    fig.write_html('data.html', auto_open=True)
+
+
 def main():
     identity, start, end = '734012530000024571', 201811290000, 201812220000
     #identity, start, end = dialogue()
     entries = get_data('produktionsdata.csv', identity, start, end)
 
-    for e in entries:
-        print(get_values(e))
+    make_graph(entries)
 
-    fig = go.Figure(data=go.Scatter(y=get_values(entries[1])))
-    fig.write_html('first_figure.html', auto_open=True)
+
+
 
 
 if __name__ == '__main__':
