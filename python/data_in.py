@@ -58,15 +58,21 @@ def dialogue():
     return identity, start, end
 
 
-def make_graph(entries):
-    fig = go.Figure()
+def short_data(entries):
+    values = list()
+    for e in entries:
+        values.append(get_values(e))
+    return values
 
-    for i in range(len(entries)):
-        e = get_values(entries[i])
-        fig.add_trace(go.Scatter(y=e,
+
+def make_graph_stacked(data):
+    fig = go.Figure()
+    i = 0
+    for d in data:
+        fig.add_trace(go.Scatter(y=d,
                                  mode='lines+markers',
-                                 line_shape='spline',
                                  name='day' + str(i + 1)))
+        i += 1
 
     fig.update_layout(title='Production per hour per day for the specified unit and date interval.',
                       xaxis_title='Hour',
@@ -75,15 +81,28 @@ def make_graph(entries):
     fig.write_html('data.html', auto_open=True)
 
 
+def make_graph(data):
+    fig = go.Figure()
+    concat_data = list()
+    for d in data:
+        concat_data = concat_data + d
+
+    fig.add_trace(go.Scatter(y=concat_data,
+                             mode='lines+markers'))
+
+    fig.update_layout(title='Production per hour per day for the specified unit and date interval.',
+                      xaxis_title='Time',
+                      yaxis_title='Production (KWH)')
+
+    fig.write_html('data.html', auto_open=True)
+
+
 def main():
     identity, start, end = '734012530000024571', 201811290000, 201812220000
-    #identity, start, end = dialogue()
+    # identity, start, end = dialogue()
     entries = get_data('produktionsdata.csv', identity, start, end)
 
-    make_graph(entries)
-
-
-
+    make_graph(short_data(entries))
 
 
 if __name__ == '__main__':
